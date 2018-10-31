@@ -14,8 +14,8 @@ public class SearchResults {
     String fileName;
 
     Long LineNumber;
-
-    @JsonProperty("Search_Query")
+.
+    @JsonProperty("found_in_line")
     String foundInLine;
 
 

@@ -35,6 +35,13 @@ public class DataSetService {
     @LogMethodExecutionTime
     public SearchResultsWrapper getSearchResults(String contentId, String searchString) {
 
+        if ( searchString == null || searchString.equals("")) {
+            List<SearchResults> searchResultsList = new ArrayList<>();
+           searchResultsList.add(new SearchResults("You should provide a value in search query request param.", 0L, ""));
+           SearchResultsWrapper searchResultsWrapper = new SearchResultsWrapper(searchResultsList,0L);
+           return searchResultsWrapper;
+        }
+
         List<SearchResults> searchResultsList = new ArrayList<>();
         searchResultsList = searchText(contentId, searchString);
 
