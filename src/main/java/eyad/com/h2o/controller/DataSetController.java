@@ -32,12 +32,21 @@ public class DataSetController {
     @Autowired
     private DataSetService dataSetService;
 
-
+    /**
+     * this a controller for searching in all data sets that do exist in data folder
+     * @param searchText search query
+     * @return search results object wrapper : match count, line numbers, data set where the search query was found
+     */
     @RequestMapping(path = "/search/", produces = MediaType.APPLICATION_JSON_VALUE)
     public String searchAllDataSet(@RequestParam("search_query") String searchText) {
         return JsonUtility.convertObjectToJson(dataSetService.getSearchResults(searchText));
     }
 
+    /**
+     * this a controller for searching in a specific provided data sets id
+     * @param searchText search query
+     * @return search results object wrapper : match count, line numbers, data set where the search query was found
+     */
     @RequestMapping(path = "/search/{contentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public SearchResultsWrapper searchSpecificDataSet(@PathVariable("contentId") String contentId, @RequestParam("search_text") String searchText) {
 
@@ -45,6 +54,10 @@ public class DataSetController {
     }
 
 
+    /**
+     * this method list all data sets that do exist in the data folder
+     * @return list of all data sets that do exist in the data folder
+     */
     @RequestMapping(path = "/list/", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> list() {
         List<String> dataSetNames = dataSetService.list();
@@ -52,6 +65,11 @@ public class DataSetController {
 
     }
 
+    /**
+     * This method list the contents of the data set with the provided id
+     * @param contentId data set id
+     * @return contents of the data set with the provided id
+     */
     @RequestMapping(path = "/list/{contentId}", produces = MediaType.TEXT_PLAIN_VALUE)
     public String listByContentId(@PathVariable("contentId") String contentId) {
 
@@ -59,6 +77,11 @@ public class DataSetController {
 
     }
 
+    /**
+     * this method decided to write on an existing data set file or create new data set file if the data set id doesn't exist
+     * @param dataSetWriter data set writer object
+     * @return the writing process results, as information text for user
+     */
     @RequestMapping(path = "/write/", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String write(@RequestBody DataSetWriter dataSetWriter) {
 
